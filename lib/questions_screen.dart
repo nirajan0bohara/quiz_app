@@ -16,20 +16,20 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
-  var currentQuestionndex = 0;
+  var currentQuestionindex = 0;
 
   void answerQuestion(String selectedAnswer) {
     widget.onSelectAnswer(selectedAnswer);
     // currentQuestionndex = currentQuestionndex + 1;
     // currentQuestionndex += 1;
     setState(() {
-      currentQuestionndex++;
+      currentQuestionindex++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentQuestion = questions[currentQuestionndex];
+    final currentQuestion = questions[currentQuestionindex];
     return SizedBox(
       width: double.infinity,
       child: Container(
