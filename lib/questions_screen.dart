@@ -20,11 +20,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void answerQuestion(String selectedAnswer) {
     widget.onSelectAnswer(selectedAnswer);
-    // currentQuestionndex = currentQuestionndex + 1;
-    // currentQuestionndex += 1;
-    setState(() {
-      currentQuestionindex++;
-    });
+    if (currentQuestionindex + 1 < questions.length) {
+      setState(() {
+        currentQuestionindex++;
+      });
+    }
   }
 
   @override
@@ -48,7 +48,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.getSuffledAnswers().map((answer) {
+            ...currentQuestion.suffledAnswers.map((answer) {
               return AnswerButton(
                 answerText: answer,
                 onTap: () {

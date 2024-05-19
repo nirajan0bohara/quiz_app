@@ -18,24 +18,34 @@ class _QuizState extends State<Quiz> {
 
   void switchScreen() {
     setState(() {
-      activeScreen = 'questions-screen';
+      if (selectedAnswers.length < questions.length) {
+        activeScreen = 'questions-screen';
+      } else {
+        activeScreen = 'results-screen';
+      }
     });
   }
 
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer);
-
-    if (selectedAnswers.length == questions.length) {
-      setState(() {
-        activeScreen = 'results-screen';
-      });
+    if (selectedAnswers.length < questions.length) {
+      selectedAnswers.add(answer);
+      // switchScreen();
+      if (selectedAnswers.length == questions.length) {
+        setState(() {
+          activeScreen = 'results-screen';
+        });
+      } else {
+        setState(() {
+          activeScreen = 'questions-screen';
+        });
+      }
     }
   }
 
   void restartQuiz() {
     setState(() {
-      selectedAnswers = [];
-      activeScreen = 'questions-screen';
+      selectedAnswers.clear();
+      activeScreen = 'start-screen';
     });
   }
 
@@ -49,7 +59,7 @@ class _QuizState extends State<Quiz> {
       );
     }
 
-    if (activeScreen == 'result-screen') {
+    if (activeScreen == 'results-screen') {
       screenWidget = ResultScreen(
         chosenAnswers: selectedAnswers,
         onRestart: restartQuiz,
@@ -57,6 +67,7 @@ class _QuizState extends State<Quiz> {
     }
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
