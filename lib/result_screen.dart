@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary.dart';
@@ -77,7 +78,7 @@ class ResultScreen extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: const EdgeInsets.all(40),
+        margin: const EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -108,17 +109,17 @@ class ResultScreen extends StatelessWidget {
               children: [
                 ShareButton(
                   ontap: () => shareOnMessenger('Your quiz results text here'),
-                  icon: Icons.facebook,
+                  icon: FontAwesomeIcons.facebookMessenger,
                   backgroundcolor: Colors.blue,
                 ),
                 ShareButton(
                   ontap: () => shareOnWhatsApp('Your quiz results text here'),
-                  icon: Icons.call,
+                  icon: FontAwesomeIcons.whatsapp,
                   backgroundcolor: Colors.green,
                 ),
                 ShareButton(
                   ontap: () => shareOnTelegram('Your quiz results text here'),
-                  icon: Icons.telegram,
+                  icon: FontAwesomeIcons.telegram,
                   backgroundcolor: Colors.blue.shade200,
                 ),
                 ShareButton(
