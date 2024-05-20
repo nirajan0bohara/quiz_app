@@ -17,34 +17,42 @@ class ResultScreen extends StatelessWidget {
   final List<String> chosenAnswers;
 
   void shareOnMessenger(String text) async {
-    // Encode the text to ensure it's safe to include in a URL
     final String encodedText = Uri.encodeComponent(text);
-    // Create the URL for Messenger
-    final Uri uri = Uri.parse("fb-messenger://share?text=$encodedText");
-
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      // Handle the case where the URL could not be launched
-      throw 'Could not launch $uri';
+    final url = "fb-messenger://share?text=$encodedText";
+    try {
+      bool launched = await launch(url);
+      if (!launched) {
+        print('Could not launch $url');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
     }
   }
 
-  void shareOnWhatsApp(String text) async {
+  Future<void> launchWhatsApp(String text) async {
     final String encodedText = Uri.encodeComponent(text);
-    final Uri uri = Uri.parse("https://wa.me/?text=$encodedText");
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {}
+    final url = 'https://wa.me/?text=$encodedText';
+    try {
+      bool launched = await launch(url);
+      if (!launched) {
+        print('Could not launch $url');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
   }
 
-  void shareOnTelegram(String text) async {
-    Uri.encodeComponent(text);
-    final Uri uri = Uri.parse(
-        "https://telegram.me/share/url?url=urlEncodedText&text=urlEncodedText");
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {}
+  Future<void> shareOnTelegram(String text) async {
+    final String encodedText = Uri.encodeComponent(text);
+    final url = "https://telegram.me/share/url?url=$encodedText";
+    try {
+      bool launched = await launch(url);
+      if (!launched) {
+        print('Could not launch $url');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
   }
 
   void shareGeneral(String text) {
@@ -108,17 +116,20 @@ class ResultScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ShareButton(
-                  ontap: () => shareOnMessenger('Your quiz results text here'),
+                  ontap: () => shareOnMessenger(
+                      'I answered $numCorrectQuestions out of ${questions.length} questions correctly!'),
                   icon: FontAwesomeIcons.facebookMessenger,
                   backgroundcolor: Colors.blue,
                 ),
                 ShareButton(
-                  ontap: () => shareOnWhatsApp('Your quiz results text here'),
+                  ontap: () => launchWhatsApp(
+                      'I answered $numCorrectQuestions out of ${questions.length} questions correctly!'),
                   icon: FontAwesomeIcons.whatsapp,
                   backgroundcolor: Colors.green,
                 ),
                 ShareButton(
-                  ontap: () => shareOnTelegram('Your quiz results text here'),
+                  ontap: () => shareOnTelegram(
+                      'I answered $numCorrectQuestions out of ${questions.length} questions correctly!'),
                   icon: FontAwesomeIcons.telegram,
                   backgroundcolor: Colors.blue.shade200,
                 ),
