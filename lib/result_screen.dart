@@ -34,8 +34,7 @@ class ResultScreen extends StatelessWidget {
     final Uri uri = Uri.parse("https://wa.me/?text=$encodedText");
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
-    } else {
-    }
+    } else {}
   }
 
   void shareOnTelegram(String text) async {
@@ -44,8 +43,7 @@ class ResultScreen extends StatelessWidget {
         "https://telegram.me/share/url?url=urlEncodedText&text=urlEncodedText");
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
-    } else {
-    }
+    } else {}
   }
 
   void shareGeneral(String text) {
@@ -97,7 +95,10 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 30),
             TextButton.icon(
               onPressed: onRestart,
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurple,
+              ),
               icon: const Icon(Icons.refresh),
               label: const Text('Restart Quiz'),
             ),
