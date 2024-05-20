@@ -48,7 +48,7 @@ class ResultScreen extends StatelessWidget {
     try {
       bool launched = await launch(url);
       if (!launched) {
-        print('Could not launch $url');
+        print('Could not launch your $url');
       }
     } catch (e) {
       print('An error occurred: $e');
