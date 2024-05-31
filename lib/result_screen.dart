@@ -50,7 +50,7 @@ class ResultScreen extends StatelessWidget {
       if (!launched) {
         print('Could not launch your $url');
       }
-    } catch (e) {
+    } catch (exp) {
       print('An error occurred: $e');
     }
   }
